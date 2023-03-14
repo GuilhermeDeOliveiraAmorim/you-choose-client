@@ -1,23 +1,30 @@
 import { AxiosInstance } from "axios";
+import { File } from "buffer";
 import { Genre } from "../domain/entities/genre";
 import { GenreGateway } from "../domain/gateways/genre.gateway";
+
+interface OutputCreateGenre {
+    genre: Genre;
+}
 
 export class GenreHttpGateway implements GenreGateway {
     constructor(private http: AxiosInstance) {}
 
-    async create(genre: Genre): Promise<Genre> {
+    async create(name: string): Promise<Genre> {
         const url = "/genres/create/genre";
 
-        const genreCreated = await this.http.post<Genre>(url, genre);
+        const genreCreated = await this.http.post<OutputCreateGenre>(url, {
+            name: name,
+        });
 
         const genreNew = new Genre({
-            genre_id: genreCreated.data.genre_id,
-            name: genreCreated.data.name,
-            picture: genreCreated.data.picture,
-            is_deleted: genreCreated.data.is_deleted,
-            created_at: genreCreated.data.created_at,
-            updated_at: genreCreated.data.updated_at,
-            deleted_at: genreCreated.data.deleted_at,
+            genre_id: genreCreated.data.genre.genre_id,
+            name: genreCreated.data.genre.name,
+            picture: genreCreated.data.genre.picture,
+            is_deleted: genreCreated.data.genre.is_deleted,
+            created_at: genreCreated.data.genre.created_at,
+            updated_at: genreCreated.data.genre.updated_at,
+            deleted_at: genreCreated.data.genre.deleted_at,
         });
 
         return genreNew;
@@ -81,5 +88,24 @@ export class GenreHttpGateway implements GenreGateway {
         const genres = await this.http.get<Genre[]>(url);
 
         return genres.data;
+    }
+
+    async addPictureToGenre(genre_id: string, file: File): Promise<Genre> {
+        const url = "/genres/add/genre/picture";
+
+        const genre = await this.http.post<Genre>(
+            url,
+            {
+                genre_id: genre_id,
+                file: file,
+            },
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+        );
+
+        return genre.data;
     }
 }
