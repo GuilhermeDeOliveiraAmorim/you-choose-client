@@ -1,18 +1,18 @@
 export type GenreProps = {
-    genreId: string;
+    genre_id: string;
     name: string;
     picture: string;
-    isDeleted: boolean;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: string;
+    is_deleted: boolean;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
 };
 
 export class Genre {
     constructor(public props: GenreProps) {}
 
-    get genreId(): string {
-        return this.genreId;
+    get genre_id(): string {
+        return this.genre_id;
     }
 
     get name(): string {
@@ -23,31 +23,31 @@ export class Genre {
         return this.picture;
     }
 
-    get isDelete(): boolean {
-        return this.isDelete;
+    get is_deleted(): boolean {
+        return this.is_deleted;
     }
 
-    get createdAt(): string {
-        return this.createdAt;
+    get created_at(): string {
+        return this.created_at;
     }
 
-    get updatedAt(): string {
-        return this.updatedAt;
+    get updated_at(): string {
+        return this.updated_at;
     }
 
-    get deletedAt(): string {
-        return this.deletedAt;
+    get deleted_at(): string {
+        return this.deleted_at;
     }
 
     toJSON() {
         return {
-            genreId: this.genreId,
+            genreId: this.genre_id,
             name: this.name,
             picture: this.picture,
-            isDeleted: this.isDelete,
-            createdAt: this.createdAt,
-            updatedAt: this.updatedAt,
-            deletedAt: this.deletedAt,
+            isDeleted: this.is_deleted,
+            createdAt: this.created_at,
+            updatedAt: this.updated_at,
+            deletedAt: this.deleted_at,
         };
     }
 }

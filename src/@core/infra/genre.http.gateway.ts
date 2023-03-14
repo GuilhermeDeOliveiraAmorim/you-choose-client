@@ -4,9 +4,6 @@ import { GenreGateway } from "../domain/gateways/genre.gateway";
 
 export class GenreHttpGateway implements GenreGateway {
     constructor(private http: AxiosInstance) {}
-    findGenreByName(name: string): Promise<Genre> {
-        throw new Error("Method not implemented.");
-    }
 
     async create(genre: Genre): Promise<Genre> {
         const url = "/genres/create/genre";
@@ -14,13 +11,13 @@ export class GenreHttpGateway implements GenreGateway {
         const genreCreated = await this.http.post<Genre>(url, genre);
 
         const genreNew = new Genre({
-            genreId: genreCreated.data.genreId,
+            genre_id: genreCreated.data.genre_id,
             name: genreCreated.data.name,
             picture: genreCreated.data.picture,
-            isDeleted: genreCreated.data.isDelete,
-            createdAt: genreCreated.data.createdAt,
-            updatedAt: genreCreated.data.updatedAt,
-            deletedAt: genreCreated.data.deletedAt,
+            is_deleted: genreCreated.data.is_deleted,
+            created_at: genreCreated.data.created_at,
+            updated_at: genreCreated.data.updated_at,
+            deleted_at: genreCreated.data.deleted_at,
         });
 
         return genreNew;
@@ -32,13 +29,13 @@ export class GenreHttpGateway implements GenreGateway {
         const genreFound = await this.http.get<Genre>(url + "/" + genreId);
 
         const genre = new Genre({
-            genreId: genreFound.data.genreId,
+            genre_id: genreFound.data.genre_id,
             name: genreFound.data.name,
             picture: genreFound.data.picture,
-            isDeleted: genreFound.data.isDelete,
-            createdAt: genreFound.data.createdAt,
-            updatedAt: genreFound.data.updatedAt,
-            deletedAt: genreFound.data.deletedAt,
+            is_deleted: genreFound.data.is_deleted,
+            created_at: genreFound.data.created_at,
+            updated_at: genreFound.data.updated_at,
+            deleted_at: genreFound.data.deleted_at,
         });
 
         return genre;
@@ -50,19 +47,19 @@ export class GenreHttpGateway implements GenreGateway {
         const genreUpdated = await this.http.put<Genre>(url, genre);
 
         const genreNew = new Genre({
-            genreId: genreUpdated.data.genreId,
+            genre_id: genreUpdated.data.genre_id,
             name: genreUpdated.data.name,
             picture: genreUpdated.data.picture,
-            isDeleted: genreUpdated.data.isDelete,
-            createdAt: genreUpdated.data.createdAt,
-            updatedAt: genreUpdated.data.updatedAt,
-            deletedAt: genreUpdated.data.deletedAt,
+            is_deleted: genreUpdated.data.is_deleted,
+            created_at: genreUpdated.data.created_at,
+            updated_at: genreUpdated.data.updated_at,
+            deleted_at: genreUpdated.data.deleted_at,
         });
 
         return genreNew;
     }
 
-    async delete(genre: string): Promise<boolean> {
+    async delete(genre: Genre): Promise<boolean> {
         const url = "/genres/delete/genre";
 
         const genreDeleted = await this.http.put<boolean>(url, genre);
@@ -81,7 +78,7 @@ export class GenreHttpGateway implements GenreGateway {
     async findAll(): Promise<Genre[]> {
         const url = "/genres/find/all/genres";
 
-        const genres = await this.http.put<Genre[]>(url);
+        const genres = await this.http.get<Genre[]>(url);
 
         return genres.data;
     }
