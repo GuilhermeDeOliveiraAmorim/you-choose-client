@@ -31,11 +31,11 @@ export class GenreHttpGateway implements GenreGateway {
     }
 
     async find(genreId: string): Promise<Genre> {
-        const url = "/genres/find/genre";
+        const url = "/genres/find/genre?genre_id=";
 
-        const genreFound = await this.http.get<Genre>(url + "/" + genreId);
+        const genreFound = await this.http.get<Genre>(url + genreId);
 
-        const genre = new Genre({
+        const genreNew = new Genre({
             genre_id: genreFound.data.genre_id,
             name: genreFound.data.name,
             picture: genreFound.data.picture,
@@ -45,7 +45,9 @@ export class GenreHttpGateway implements GenreGateway {
             deleted_at: genreFound.data.deleted_at,
         });
 
-        return genre;
+        console.log(genreFound);
+
+        return genreNew;
     }
 
     async update(genre: Genre): Promise<Genre> {

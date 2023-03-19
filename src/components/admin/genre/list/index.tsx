@@ -8,7 +8,7 @@ interface IGenreList {
 export default function GenreList(props: IGenreList) {
     const { genres } = props;
     return (
-        <div>
+        <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
             {genres.map(genre =>
                 <GenreItem key={genre.genre_id} genre={genre} />
             )}

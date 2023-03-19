@@ -37,6 +37,7 @@ export default function GenreCreate() {
 
         }
     }
+    
     return (
         <div>
             <form onSubmit={handleSubmit}>

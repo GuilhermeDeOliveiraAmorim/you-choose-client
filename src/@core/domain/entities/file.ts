@@ -1,29 +1,41 @@
-import { File } from "./file";
-
-export type GenreProps = {
-    genre_id: string;
+export type FileProps = {
+    file_id: string;
+    entity_id: string;
     name: string;
-    picture: string;
+    size: number;
+    extension: string;
+    average_color: string;
     is_deleted: boolean;
     created_at: string;
     updated_at: string;
     deleted_at: string;
-    file: File;
 };
 
-export class Genre {
-    constructor(public props: GenreProps) {}
+export class File {
+    constructor(public props: FileProps) {}
 
-    get genre_id(): string {
-        return this.genre_id;
+    get file_id(): string {
+        return this.file_id;
+    }
+
+    get entity_id(): string {
+        return this.entity_id;
     }
 
     get name(): string {
         return this.name;
     }
 
-    get picture(): string {
-        return this.picture;
+    get size(): number {
+        return this.size;
+    }
+
+    get extension(): string {
+        return this.extension;
+    }
+
+    get average_color(): string {
+        return this.average_color;
     }
 
     get is_deleted(): boolean {
@@ -42,20 +54,18 @@ export class Genre {
         return this.deleted_at;
     }
 
-    get file(): string {
-        return this.file;
-    }
-
     toJSON() {
         return {
-            genreId: this.genre_id,
+            file_id: this.file_id,
+            entity_id: this.entity_id,
             name: this.name,
-            picture: this.picture,
+            size: this.size,
+            extension: this.extension,
+            average_color: this.average_color,
             isDeleted: this.is_deleted,
             createdAt: this.created_at,
             updatedAt: this.updated_at,
             deletedAt: this.deleted_at,
-            file: this.file,
         };
     }
 }
